@@ -1,1 +1,1 @@
-export * from "./ui/top-bar/TobBar";
+export * from "./ui/top-bar/TopBar";
