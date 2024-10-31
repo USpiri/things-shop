@@ -1,6 +1,7 @@
-import { Menu, Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { MenuButton } from "./MenuButton";
 
 export const MenuTopBar = () => {
   return (
@@ -21,9 +22,7 @@ export const MenuTopBar = () => {
       >
         <Search className="hidden sm:block w-4 h-4" />
       </Link>
-      <button className="hover:bg-neutral-800/80 p-1.5 rounded active:scale-95 transition-all">
-        <Menu className="w-4 h-4" />
-      </button>
+      <MenuButton />
     </div>
   );
 };
