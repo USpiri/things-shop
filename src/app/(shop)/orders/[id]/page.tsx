@@ -10,7 +10,7 @@ export default function Page() {
         <span>Order: #123456</span>
       </Title>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
-        <aside className="col-span-2 border border-rose-600/30 rounded text-sm bg-red-400/10 px-3 py-1.5">
+        <aside className="md:col-span-2 border border-rose-600/30 rounded text-sm bg-red-400/10 px-3 py-1.5">
           Payment pending
         </aside>
         <section className="flex flex-col gap-5">
