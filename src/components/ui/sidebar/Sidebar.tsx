@@ -13,7 +13,6 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { Fragment } from "react";
 
 const menuItems = [
   {
@@ -90,16 +89,15 @@ export const Sidebar = () => {
           </label>
         </div>
         <div className="py-1">
-          {menuItems.map((item, i) => (
-            <Fragment key={i}>
-              <Link
-                href={item.path}
-                className="font-mono group px-4 hover:bg-neutral-800 py-1 font-extralight transition-all tracking-widest flex gap-3 items-center"
-              >
-                <item.icon className="h-4 w-4 stroke-[1.2] group-hover:stroke-2 transition-all" />
-                {item.label}
-              </Link>
-            </Fragment>
+          {menuItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.path}
+              className="font-mono group px-4 hover:bg-neutral-800 py-1 font-extralight transition-all tracking-widest flex gap-3 items-center"
+            >
+              <item.icon className="h-4 w-4 stroke-[1.2] group-hover:stroke-2 transition-all" />
+              {item.label}
+            </Link>
           ))}
         </div>
         <div></div>

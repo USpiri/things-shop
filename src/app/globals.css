@@ -25,6 +25,10 @@ body {
   }
 }
 
+.link {
+  @apply rounded active:scale-95 transition-all hover:bg-neutral-800/80;
+}
+
 .fade-in {
   animation-fill-mode: both;
   animation-duration: 0.5s;
