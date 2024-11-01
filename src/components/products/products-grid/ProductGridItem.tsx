@@ -10,7 +10,7 @@ export const ProductGridItem = ({ product }: Props) => {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="fade-in border border-neutral-700 group rounded-lg overflow-hidden transition-all hover:border-neutral-500"
+      className="fade-in group rounded-md overflow-hidden transition-all hover:border-neutral-500"
     >
       <div className="relative">
         <Image

@@ -35,7 +35,7 @@ export const ProductImageSwiper = ({ images }: Props) => {
       </div>
       <div className="overflow-hidden">
         <Swiper
-          className="rounded lg:max-w-[450px] max-w-xl"
+          className="rounded"
           spaceBetween={10}
           autoplay={{ delay: 4000 }}
           mousewheel={true}
