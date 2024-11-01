@@ -1,7 +1,11 @@
-import { Button } from "@/components";
+import {
+  Button,
+  ProductImageSwiper,
+  QuantitySelector,
+  SizeSelector,
+} from "@/components";
 import { initialData } from "@/seed";
 import { ShoppingCart } from "lucide-react";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -17,29 +21,7 @@ export default function Page({ params }: Props) {
   return (
     <main className="flex items-center justify-center h-full">
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-20">
-        <div className="sm:col-span-3 flex gap-3 flex-col-reverse lg:flex-row justify-end">
-          <div className="flex shrink-0 gap-4 flex-row lg:flex-col justify-center lg:justify-start">
-            {product.images.map((img) => (
-              <Image
-                key={img}
-                src={`/images/products/${img}`}
-                width={200}
-                height={200}
-                alt={`Product image: ${img}`}
-                className="aspect-[4/3] w-40 object-cover rounded object-left-top"
-              />
-            ))}
-          </div>
-          <div>
-            <Image
-              src={`/images/products/${product.images[0]}`}
-              width={420}
-              height={420}
-              alt="Product image"
-              className="rounded lg:max-w-[unset] max-w-xl w-full"
-            />
-          </div>
-        </div>
+        <ProductImageSwiper images={product.images} />
         <div className="sm:col-span-2 flex flex-col justify-between p-3">
           <div className=" flex flex-col gap-6">
             <h1 className="text-3xl font-mono font-semibold">
@@ -49,8 +31,19 @@ export default function Page({ params }: Props) {
               {product.description}
             </p>
             <p className="font-mono text-4xl opacity-80">${product.price}</p>
+            <div>
+              <p className="mb-2">Size:</p>
+              <SizeSelector
+                value="M"
+                options={["S", "M", "L", "XS", "XL", "XXL", "XXXL"]}
+              />
+            </div>
+            <div>
+              <p className="mb-2">Quantity:</p>
+              <QuantitySelector maxValue={10} />
+            </div>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mt-6">
             <Button
               variant="primary"
               size="lg"
