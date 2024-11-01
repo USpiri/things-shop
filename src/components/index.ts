@@ -8,3 +8,4 @@ export * from "./ui/title/Title";
 export * from "./ui/title/SubTitle";
 export * from "./ui/button/Button";
 export * from "./ui/input/Input";
+export * from "./ui/footer/Footer";
