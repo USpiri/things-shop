@@ -1,4 +1,5 @@
 import { cn } from "@/utils";
+import Link from "next/link";
 
 type Style = "ghost" | "outline" | "primary";
 type Size = "default" | "icon" | "lg";
@@ -18,6 +19,8 @@ const btnSize: Record<Size, string> = {
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Style;
   size?: Size;
+  link?: boolean;
+  href?: string;
 }
 
 export const Button = ({
@@ -25,19 +28,27 @@ export const Button = ({
   className,
   size = "default",
   variant = "ghost",
+  link,
+  href,
   ...props
 }: ButtonProps) => {
+  const commonClasses = cn(
+    "rounded active:scale-95 transition-all inline-flex items-center justify-center gap-2",
+    "disabled:pointer-events-none disabled:opacity-50",
+    btnSize[size],
+    style[variant],
+    className,
+  );
+
+  if (link && href)
+    return (
+      <Link href={href} className={commonClasses}>
+        {children}
+      </Link>
+    );
+
   return (
-    <button
-      {...props}
-      className={cn(
-        "rounded active:scale-95 transition-all inline-flex items-center justify-center gap-2",
-        "disabled:pointer-events-none disabled:opacity-50",
-        btnSize[size],
-        style[variant],
-        className,
-      )}
-    >
+    <button {...props} className={commonClasses}>
       {children}
     </button>
   );
