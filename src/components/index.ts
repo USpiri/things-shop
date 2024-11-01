@@ -7,3 +7,4 @@ export * from "./ui/sidebar/Sidebar";
 export * from "./ui/title/Title";
 export * from "./ui/title/SubTitle";
 export * from "./ui/button/Button";
+export * from "./ui/input/Input";
