@@ -20,7 +20,7 @@ export default function Page({ params }: Props) {
 
   return (
     <main className="flex items-center justify-center h-full">
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-20">
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
         <ProductImageSwiper images={product.images} />
         <div className="sm:col-span-2 flex flex-col justify-between p-3">
           <div className=" flex flex-col gap-6">
