@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <main className="flex items-center justify-center h-screen">
-      <div className="flex flex-col max-w-[340px] p-5 gap-5 w-full">
+      <div className="flex flex-col max-w-[340px] w-full p-5 gap-5">
         <header>
           <p className="text-center text-sm text-neutral-400">Welcome to</p>
           <div className="flex gap-4 justify-center items-center mt-2">
@@ -22,19 +22,18 @@ export default function Page() {
           </div>
         </header>
         <div className="flex flex-col gap-4">
+          <Input label="Full name" placeholder="example@email.com" />
           <Input label="Email" placeholder="example@email.com" />
           <Input label="Password" placeholder="******" />
+          <Input label="Confirm Password" placeholder="******" />
           <Button variant="primary" className="text-sm" size="lg">
-            Login
+            Register
           </Button>
         </div>
         <footer className="flex justify-between text-sm sm:flex-row flex-col">
-          <p>Do not have an account?</p>
-          <Link
-            href={"/auth/register"}
-            className="font-semibold hover:underline"
-          >
-            Create account
+          <p>Alrready have an account?</p>
+          <Link href={"/auth/login"} className="font-semibold hover:underline">
+            Login
           </Link>
         </footer>
       </div>
