@@ -9,3 +9,4 @@ export * from "./ui/title/SubTitle";
 export * from "./ui/button/Button";
 export * from "./ui/input/Input";
 export * from "./ui/footer/Footer";
+export * from "./ui/pagination/Pagination";
