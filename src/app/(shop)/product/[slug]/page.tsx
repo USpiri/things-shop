@@ -1,26 +1,45 @@
+export const revalidate = 604800;
+
+import { getProductBySlug } from "@/actions/products/product-by";
 import {
   Button,
   ProductImageSwiper,
   QuantitySelector,
   SizeSelector,
+  StockLabel,
 } from "@/components";
-import { initialData } from "@/seed";
 import { ShoppingCart } from "lucide-react";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 interface Props {
   params: {
     slug: string;
   };
 }
-export default function Page({ params }: Props) {
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = params;
-  const product = initialData.products.find((p) => p.slug === slug);
+
+  const product = await getProductBySlug(slug);
+
+  return {
+    title: product?.title ?? "Thins Shop",
+    description: product?.description ?? "Minimalist shop",
+    openGraph: {
+      images: [`/products/${product?.images[1]}`],
+    },
+  };
+}
+
+export default async function Page({ params }: Props) {
+  const { slug } = params;
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
   return (
     <main className="flex items-center justify-center h-full">
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-5 md:gap-5">
         <ProductImageSwiper images={product.images} />
         <div className="sm:col-span-2 flex flex-col justify-between p-3">
           <div className=" flex flex-col gap-6">
@@ -28,9 +47,14 @@ export default function Page({ params }: Props) {
               {product.title}
             </h1>
             <p className="text-sm opacity-80 font-light">
-              {product.description}
+              {product.description} &nbsp;
             </p>
-            <p className="font-mono text-4xl opacity-80">${product.price}</p>
+            <div>
+              <p className="font-mono text-4xl opacity-80">${product.price}</p>
+              <span className="text-sm opacity-50">
+                In stock: <StockLabel slug={slug} />
+              </span>
+            </div>
             <div>
               <p className="mb-2">Size:</p>
               <SizeSelector

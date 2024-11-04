@@ -3,7 +3,10 @@ import "./globals.css";
 import { geistMono, geistSans } from "@/config/fonts";
 
 export const metadata: Metadata = {
-  title: "Things Shop",
+  title: {
+    template: "%s | Things Shop",
+    default: "Things Shop",
+  },
   description: "Minimalist shop",
 };
 

@@ -3,6 +3,7 @@ export * from "./products/products-grid/ProductsGrid";
 export * from "./product/size-selector/SizeSelector";
 export * from "./product/quantity-selector/QuantitySelector";
 export * from "./product/product-image-swiper/ProductImageSwiper";
+export * from "./product/stock-label/StockLabel";
 export * from "./ui/sidebar/Sidebar";
 export * from "./ui/title/Title";
 export * from "./ui/title/SubTitle";
