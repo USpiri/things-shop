@@ -1,16 +1,10 @@
 export const revalidate = 604800;
 
 import { getProductBySlug } from "@/actions/products/product-by";
-import {
-  Button,
-  ProductImageSwiper,
-  QuantitySelector,
-  SizeSelector,
-  StockLabel,
-} from "@/components";
-import { ShoppingCart } from "lucide-react";
+import { ProductImageSwiper, StockLabel } from "@/components";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { AddToCart } from "./ui/AddToCart";
 
 interface Props {
   params: {
@@ -41,8 +35,8 @@ export default async function Page({ params }: Props) {
     <main className="flex items-center justify-center h-full">
       <div className="grid grid-cols-1 sm:grid-cols-5 md:gap-5">
         <ProductImageSwiper images={product.images} />
-        <div className="sm:col-span-2 flex flex-col justify-between p-3">
-          <div className=" flex flex-col gap-6">
+        <div className="sm:col-span-2 flex flex-col justify-between p-3 gap-6">
+          <div className="flex flex-col gap-6">
             <h1 className="text-3xl font-mono font-semibold">
               {product.title}
             </h1>
@@ -55,28 +49,8 @@ export default async function Page({ params }: Props) {
                 In stock: <StockLabel slug={slug} />
               </span>
             </div>
-            <div>
-              <p className="mb-2">Size:</p>
-              <SizeSelector
-                value="M"
-                options={["S", "M", "L", "XS", "XL", "XXL", "XXXL"]}
-              />
-            </div>
-            <div>
-              <p className="mb-2">Quantity:</p>
-              <QuantitySelector maxValue={10} />
-            </div>
           </div>
-          <div className="flex flex-col gap-3 mt-6">
-            <Button
-              variant="primary"
-              size="lg"
-              className="tracking-wider font-medium"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              Add to cart
-            </Button>
-          </div>
+          <AddToCart product={product} />
         </div>
       </div>
     </main>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button/Button";
 import { Size } from "@/models/product.interface";
 
 interface Props {
-  value: Size;
+  value?: Size;
   options: Size[];
   onChange?: (value: Size) => void;
 }
