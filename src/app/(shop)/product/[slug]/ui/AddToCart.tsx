@@ -1,6 +1,7 @@
 "use client";
 import { Button, QuantitySelector, SizeSelector } from "@/components";
-import { Product, Size } from "@/models/product.interface";
+import { CartProduct, Product, Size } from "@/models/product.interface";
+import { useCartStore } from "@/store/cart/cart.store";
 import { cn } from "@/utils";
 import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export const AddToCart = ({ product }: Props) => {
+  const addProductToCart = useCartStore((state) => state.addToCart);
   const [size, setSize] = useState<Size | undefined>();
   const [quantity, setQuantity] = useState(1);
   const [clicked, setClicked] = useState(false);
@@ -20,7 +22,20 @@ export const AddToCart = ({ product }: Props) => {
       return;
     }
 
-    console.log({ size, quantity, product });
+    const cartProduct: CartProduct = {
+      id: product.id,
+      slug: product.slug,
+      image: product.images[0],
+      price: product.price,
+      title: product.title,
+      quantity,
+      size,
+    };
+
+    addProductToCart(cartProduct);
+    setClicked(false);
+    setQuantity(1);
+    setSize(undefined);
   };
 
   return (
