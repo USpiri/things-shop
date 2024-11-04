@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 const categories = [
-  { label: "Men", path: "/category/men" },
-  { label: "Women", path: "/category/women" },
-  { label: "Kids", path: "/category/kid" },
+  { label: "Men", path: "/gender/men" },
+  { label: "Women", path: "/gender/women" },
+  { label: "Kids", path: "/gender/kid" },
 ];
 
 // TODO: apply "font-bold" to active item
