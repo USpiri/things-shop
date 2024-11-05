@@ -64,7 +64,7 @@ export const AddToCart = ({ product }: Props) => {
       <div>
         <p
           className={cn(
-            "opacity-50 text-sm",
+            "text-sm text-red-500",
             clicked ? "visible" : "invisible",
           )}
         >

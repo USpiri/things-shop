@@ -14,7 +14,10 @@ export const CartButton = () => {
   }, []);
 
   return (
-    <Link href={"/cart"} className="link p-1.5 relative">
+    <Link
+      href={loaded && totalItems > 0 ? "/cart" : "/empty"}
+      className="link p-1.5 relative"
+    >
       {loaded && totalItems > 0 && (
         <div
           className={cn(

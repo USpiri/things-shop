@@ -4,6 +4,7 @@ import { useCartStore } from "@/store/cart/cart.store";
 import { useEffect, useState } from "react";
 import { ProductInCartLoader } from "./ProductInCartLoader";
 import { ProductInCart } from "./ProductInCart";
+import { redirect } from "next/navigation";
 
 export const ProductsInCart = () => {
   const products = useCartStore((state) => state.cart);
@@ -14,6 +15,8 @@ export const ProductsInCart = () => {
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  if (loaded && products.length === 0) redirect("/empty");
 
   if (!loaded) {
     return (
