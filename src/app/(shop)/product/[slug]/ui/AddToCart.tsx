@@ -49,7 +49,7 @@ export const AddToCart = ({ product }: Props) => {
               setClicked(false);
               setSize(value);
             }}
-            options={["S", "M", "L", "XS", "XL", "XXL", "XXXL"]}
+            options={product.sizes}
           />
         </div>
         <div>
