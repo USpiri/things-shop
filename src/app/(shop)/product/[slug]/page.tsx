@@ -5,6 +5,7 @@ import { ProductImageSwiper, StockLabel } from "@/components";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { AddToCart } from "./ui/AddToCart";
+import { currencyFormat } from "@/utils";
 
 interface Props {
   params: {
@@ -44,7 +45,9 @@ export default async function Page({ params }: Props) {
               {product.description} &nbsp;
             </p>
             <div>
-              <p className="font-mono text-4xl opacity-80">${product.price}</p>
+              <p className="font-mono text-4xl opacity-80">
+                {currencyFormat(product.price)}
+              </p>
               <span className="text-sm opacity-50">
                 In stock: <StockLabel slug={slug} />
               </span>

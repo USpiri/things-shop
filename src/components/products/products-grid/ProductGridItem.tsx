@@ -1,4 +1,5 @@
 import { Product } from "@/models/product.interface";
+import { currencyFormat } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,7 +31,7 @@ export const ProductGridItem = ({ product }: Props) => {
       </div>
       <div className="p-2 text-sm">
         <h3 className="truncate group-hover:opacity-50">{product.title}</h3>
-        <p className="font-mono opacity-80">${product.price}</p>
+        <p className="font-mono opacity-80">{currencyFormat(product.price)}</p>
       </div>
     </Link>
   );

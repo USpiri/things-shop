@@ -1,5 +1,6 @@
 import { Button, QuantitySelector } from "@/components";
 import { CartProduct } from "@/models/product.interface";
+import { currencyFormat } from "@/utils";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,7 +35,7 @@ export const ProductInCart = ({
             </h3>
           </Link>
           <p className="font-mono tracking-widest text-sm opacity-50">
-            {product.size} <span>(${product.price})</span>
+            Size: {product.size} <span>- {currencyFormat(product.price)}</span>
           </p>
         </header>
         <QuantitySelector
@@ -44,10 +45,14 @@ export const ProductInCart = ({
         />
       </div>
       <footer className="pt-1 flex flex-col justify-between px-3">
-        <Button size="icon" onClick={() => onDeleteProduct()}>
+        <Button
+          size="icon"
+          onClick={() => onDeleteProduct()}
+          className="self-end"
+        >
           <Trash2 className="w-4 h-4" />
         </Button>
-        <span>${product.price * product.quantity}</span>
+        <span>{currencyFormat(product.price * product.quantity)}</span>
       </footer>
     </article>
   );
