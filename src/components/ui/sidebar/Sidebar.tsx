@@ -1,59 +1,9 @@
 "use client";
-import { logout } from "@/actions/auth";
+
 import { useUIStore } from "@/store";
 import clsx from "clsx";
-import {
-  Home,
-  LogIn,
-  LogOut,
-  ReceiptText,
-  Search,
-  Shirt,
-  User,
-  Users,
-  X,
-} from "lucide-react";
-import { Button } from "../button/Button";
-
-const menuItems = [
-  {
-    path: "/",
-    label: "Home",
-    icon: Home,
-  },
-  {
-    path: "/profile",
-    label: "Profile",
-    icon: User,
-  },
-  {
-    path: "/orders",
-    label: "Orders",
-    icon: ReceiptText,
-  },
-  {
-    path: "/auth/login",
-    label: "Login",
-    icon: LogIn,
-  },
-  {
-    label: "Logout",
-    icon: LogOut,
-    action: () => {
-      logout();
-    },
-  },
-  {
-    path: "/products",
-    label: "Products",
-    icon: Shirt,
-  },
-  {
-    path: "/users",
-    label: "Clients",
-    icon: Users,
-  },
-];
+import { Search, X } from "lucide-react";
+import { SidebarButtons } from "./SidebarButtons";
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
@@ -88,22 +38,14 @@ export const Sidebar = () => {
         <div className="p-4">
           <label className="flex items-center gap-2 border rounded-md border-neutral-700 p-2">
             <Search className="w-4 h-4" />
-            <input className="outline-none flex-1 bg-transparent text-sm font-mono" />
+            <input
+              className="outline-none flex-1 bg-transparent text-sm font-mono placeholder-neutral-500"
+              placeholder="Search..."
+            />
           </label>
         </div>
         <div className="py-1 flex flex-col">
-          {menuItems.map((item) => (
-            <Button
-              key={item.label}
-              href={item.path}
-              onClick={item.action}
-              link={!!item.path}
-              className="group justify-start rounded-none px-4 py-1.5 tracking-widest gap-3 font-extralight font-mono"
-            >
-              <item.icon className="h-4 w-4 stroke-[1.2] group-hover:stroke-2 transition-all" />
-              {item.label}
-            </Button>
-          ))}
+          <SidebarButtons />
         </div>
         <div></div>
       </nav>
