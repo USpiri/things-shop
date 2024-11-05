@@ -5,11 +5,14 @@ async function main() {
   if (process.env.NODE_ENV === "production") return;
 
   // 1. Delete previous data
+  await prisma.user.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
 
-  const { products, categories } = initialData;
+  const { products, categories, users } = initialData;
+
+  await prisma.user.createMany({ data: users });
 
   await prisma.category.createMany({
     data: categories.map((name) => ({ name })),
