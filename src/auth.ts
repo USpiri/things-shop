@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
+import { prisma } from "./lib/prisma";
+import { compareSync } from "bcryptjs";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -24,9 +26,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!parsedCredentials.success) throw new Error("Invalid credentials.");
         const { email, password } = parsedCredentials.data;
 
-        console.log("AUTH", { email, password });
+        try {
+          const user = await prisma.user.findUnique({
+            where: { email: email.toLowerCase() },
+          });
 
-        return null;
+          if (!user) return null;
+          const { password: userPass, ...rest } = user;
+          if (!compareSync(password, userPass)) return null;
+
+          return rest;
+        } catch (error) {
+          console.log(error);
+          return null;
+        }
       },
     }),
   ],
