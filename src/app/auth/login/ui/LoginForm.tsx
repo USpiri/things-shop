@@ -7,11 +7,16 @@ import { Check, TriangleAlert } from "lucide-react";
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
-export const LoginForm = () => {
+interface Props {
+  redirectTo?: string;
+}
+
+export const LoginForm = ({ redirectTo }: Props) => {
   const [state, formAction] = useFormState(authenticate, undefined);
+
   useEffect(() => {
     if (state === "Success") {
-      window.location.replace("/");
+      window.location.replace(`${redirectTo ?? "/"}`);
     }
   }, [state]);
 

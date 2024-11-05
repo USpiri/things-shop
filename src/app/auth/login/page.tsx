@@ -2,7 +2,13 @@ import { Origami } from "lucide-react";
 import Link from "next/link";
 import { LoginForm } from "./ui/LoginForm";
 
-export default function Page() {
+interface Props {
+  searchParams: {
+    redirectTo?: string;
+  };
+}
+
+export default function Page({ searchParams }: Props) {
   return (
     <main className="flex items-center justify-center h-screen">
       <div className="flex flex-col max-w-[340px] p-5 gap-5 w-full">
@@ -21,7 +27,7 @@ export default function Page() {
             <div className="border-t w-full absolute" />
           </div>
         </header>
-        <LoginForm />
+        <LoginForm redirectTo={searchParams.redirectTo} />
         <footer className="flex justify-between text-sm sm:flex-row flex-col">
           <p>Do not have an account?</p>
           <Link

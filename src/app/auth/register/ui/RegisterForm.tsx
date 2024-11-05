@@ -2,6 +2,8 @@
 
 import { Button, InputForm as Input } from "@/components";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { login, register as registerUser } from "@/actions/auth";
+import { useState } from "react";
 
 type FormValues = {
   name: string;
@@ -11,6 +13,7 @@ type FormValues = {
 };
 
 export const RegisterForm = () => {
+  const [errorMsg, setErrorMsg] = useState("");
   const {
     register,
     handleSubmit,
@@ -18,12 +21,28 @@ export const RegisterForm = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data, errors);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const { name, email, password } = data;
+    const resUser = await registerUser(name, email, password);
+
+    if (!resUser.ok) {
+      setErrorMsg(resUser.message ?? "Error");
+      return;
+    }
+
+    setErrorMsg("");
+    await login(email, password);
+    window.location.replace("/");
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(async (data) => await onSubmit(data))}
+      className="flex flex-col gap-4"
+    >
+      {errorMsg.length > 0 && (
+        <p className="text-sm text-red-400">{errorMsg}.</p>
+      )}
       <div>
         <Input
           label="Full name"
