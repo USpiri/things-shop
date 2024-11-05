@@ -1,4 +1,5 @@
 "use client";
+import { logout } from "@/actions/auth";
 import { useUIStore } from "@/store";
 import clsx from "clsx";
 import {
@@ -12,7 +13,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import Link from "next/link";
+import { Button } from "../button/Button";
 
 const menuItems = [
   {
@@ -36,9 +37,11 @@ const menuItems = [
     icon: LogIn,
   },
   {
-    path: "/auth/logout",
     label: "Logout",
     icon: LogOut,
+    action: () => {
+      logout();
+    },
   },
   {
     path: "/products",
@@ -88,16 +91,18 @@ export const Sidebar = () => {
             <input className="outline-none flex-1 bg-transparent text-sm font-mono" />
           </label>
         </div>
-        <div className="py-1">
+        <div className="py-1 flex flex-col">
           {menuItems.map((item) => (
-            <Link
+            <Button
               key={item.label}
               href={item.path}
-              className="font-mono group px-4 hover:bg-neutral-800 py-1 font-extralight transition-all tracking-widest flex gap-3 items-center"
+              onClick={item.action}
+              link={!!item.path}
+              className="group justify-start rounded-none px-4 py-1.5 tracking-widest gap-3 font-extralight font-mono"
             >
               <item.icon className="h-4 w-4 stroke-[1.2] group-hover:stroke-2 transition-all" />
               {item.label}
-            </Link>
+            </Button>
           ))}
         </div>
         <div></div>
