@@ -5,11 +5,13 @@ import { Minus, Plus } from "lucide-react";
 interface Props {
   quantity?: number;
   maxValue?: number;
+  minValue?: number;
   onChange?: (value: number) => void;
 }
 
 export const QuantitySelector = ({
   quantity = 1,
+  minValue = 0,
   maxValue,
   onChange,
 }: Props) => {
@@ -17,7 +19,10 @@ export const QuantitySelector = ({
     throw new Error("Quantity must be less than maxValue");
 
   const onQuantityChange = (value: number) => {
-    if (quantity + value < 0 || (maxValue && quantity + value > maxValue))
+    if (
+      quantity + value < minValue ||
+      (maxValue && quantity + value > maxValue)
+    )
       return;
     if (onChange) onChange(quantity + value);
   };
