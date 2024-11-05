@@ -1,6 +1,6 @@
-import { Button, Input } from "@/components";
 import { Origami } from "lucide-react";
 import Link from "next/link";
+import { LoginForm } from "./ui/LoginForm";
 
 export default function Page() {
   return (
@@ -21,13 +21,7 @@ export default function Page() {
             <div className="border-t w-full absolute" />
           </div>
         </header>
-        <div className="flex flex-col gap-4">
-          <Input label="Email" placeholder="example@email.com" />
-          <Input label="Password" placeholder="******" />
-          <Button variant="primary" className="text-sm" size="lg">
-            Login
-          </Button>
-        </div>
+        <LoginForm />
         <footer className="flex justify-between text-sm sm:flex-row flex-col">
           <p>Do not have an account?</p>
           <Link

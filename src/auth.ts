@@ -11,14 +11,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       credentials: {
         email: {
-          label: "email",
-          type: "text",
-          placeholder: "email@example.com",
+          // label: "email",
+          // type: "text",
+          // placeholder: "email@example.com",
         },
         password: {
-          label: "Password",
-          type: "password",
-          placeholder: "********",
+          // label: "Password",
+          // type: "password",
+          // placeholder: "********",
         },
       },
       async authorize(credentials) {
@@ -32,7 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!parsedCredentials.success) throw new Error("Invalid credentials.");
         const { email, password } = parsedCredentials.data;
 
-        console.log({ email, password });
+        console.log("AUTH", { email, password });
 
         return null;
       },
