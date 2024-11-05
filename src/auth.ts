@@ -10,16 +10,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       credentials: {
-        email: {
-          // label: "email",
-          // type: "text",
-          // placeholder: "email@example.com",
-        },
-        password: {
-          // label: "Password",
-          // type: "password",
-          // placeholder: "********",
-        },
+        email: {},
+        password: {},
       },
       async authorize(credentials) {
         const parsedCredentials = z
