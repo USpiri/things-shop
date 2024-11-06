@@ -6,6 +6,7 @@ async function main() {
   if (process.env.NODE_ENV === "production") return;
 
   // 1. Delete previous data
+  await prisma.userAddress.deleteMany();
   await prisma.user.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
