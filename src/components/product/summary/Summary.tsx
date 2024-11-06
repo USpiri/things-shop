@@ -7,6 +7,7 @@ interface Props {
   tax: number;
   taxPercentage?: number;
   total: number;
+  loading?: boolean;
 }
 
 export const Summary = ({
@@ -15,6 +16,7 @@ export const Summary = ({
   tax,
   taxPercentage,
   total,
+  loading = false,
 }: Props) => {
   return (
     <>
@@ -22,19 +24,43 @@ export const Summary = ({
       <dl className="divide-y divide-neutral-800 text-sm *:flex *:justify-between *:py-4 font-mono">
         <div className="opacity-70">
           <dt>Subtotal</dt>
-          <dd>{currencyFormat(subtotal)}</dd>
+          <dd>
+            {!loading ? (
+              currencyFormat(subtotal)
+            ) : (
+              <div className="w-10 h-5 animate-pulse bg-neutral-700 rounded" />
+            )}
+          </dd>
         </div>
         <div className="opacity-70">
           <dt>Tax{taxPercentage && <span> ({taxPercentage}%)</span>}</dt>
-          <dd>{currencyFormat(tax)}</dd>
+          <dd>
+            {!loading ? (
+              currencyFormat(tax)
+            ) : (
+              <div className="w-10 h-5 animate-pulse bg-neutral-700 rounded" />
+            )}
+          </dd>
         </div>
         <div className="opacity-70">
           <dt>Shipping</dt>
-          <dd>{currencyFormat(shipping)}</dd>
+          <dd>
+            {!loading ? (
+              currencyFormat(shipping)
+            ) : (
+              <div className="w-10 h-5 animate-pulse bg-neutral-700 rounded" />
+            )}
+          </dd>
         </div>
         <div className="font-bold text-lg">
           <dt>Total</dt>
-          <dd>{currencyFormat(total)}</dd>
+          <dd>
+            {!loading ? (
+              currencyFormat(total)
+            ) : (
+              <div className="w-10 h-5 animate-pulse bg-neutral-700 rounded" />
+            )}
+          </dd>
         </div>
       </dl>
     </>

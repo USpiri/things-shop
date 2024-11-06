@@ -17,10 +17,6 @@ export const SummaryCart = () => {
     setLoaded(true);
   }, []);
 
-  if (!loaded) {
-    return <p>Loading</p>;
-  }
-
   return (
     <Summary
       subtotal={subTotal}
@@ -28,6 +24,7 @@ export const SummaryCart = () => {
       taxPercentage={_tax}
       total={total}
       shipping={shipping}
+      loading={!loaded}
     />
   );
 };
