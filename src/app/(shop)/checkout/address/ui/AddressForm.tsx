@@ -1,6 +1,8 @@
 "use client";
 import { InputForm as Input, SubTitle } from "@/components";
 import { Country } from "@/models/country.interface";
+import { useAddressStore } from "@/store";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -22,11 +24,19 @@ type FormValues = {
 };
 
 export const AddressForm = ({ countries }: Props) => {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
+  const setAddress = useAddressStore((state) => state.setAddress);
+  const address = useAddressStore.getState().address;
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
+    setAddress(data);
   };
+
+  useEffect(() => {
+    if (address.name) {
+      reset(address);
+    }
+  }, []);
 
   return (
     <form
@@ -91,14 +101,14 @@ export const AddressForm = ({ countries }: Props) => {
           </select>
         </label>
         <Input
-          label="City"
-          placeholder="City"
-          {...register("city", { required: true })}
-        />
-        <Input
           label="State"
           placeholder="State"
           {...register("state", { required: true })}
+        />
+        <Input
+          label="City"
+          placeholder="City"
+          {...register("city", { required: true })}
         />
         <Input
           label="Postal code"
