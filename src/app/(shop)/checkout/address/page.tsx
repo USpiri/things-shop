@@ -1,16 +1,20 @@
 import { getCountries } from "@/actions/country";
 import { Button, SubTitle, Title } from "@/components";
 import { AddressForm } from "./ui/AddressForm";
+import { getAddress } from "@/actions/address";
+import { auth } from "@/auth";
 
 export default async function Page() {
   const countries = await getCountries();
+  const session = await auth();
+  const address = (await getAddress(session!.user.id)) ?? undefined;
 
   return (
     <main>
       <Title>Checkout</Title>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
         <section>
-          <AddressForm countries={countries} />
+          <AddressForm countries={countries} storedAddress={address} />
         </section>
         <section>
           <SubTitle className="text-lg font-mono sm:col-span-2 mb-3">
