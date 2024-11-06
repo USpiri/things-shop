@@ -25,7 +25,7 @@ export default async function Page() {
             form="address-form"
             type="submit"
           >
-            Confirm payment
+            Confirm address
           </Button>
         </section>
       </div>
