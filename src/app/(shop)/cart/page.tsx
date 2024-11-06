@@ -16,7 +16,7 @@ export default function Page() {
         <div className="col-span-2">
           <article className="px-3 flex flex-col gap-3 sticky top-20">
             <SummaryCart />
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 mt-3">
               <Button
                 variant="primary"
                 size="lg"

@@ -16,12 +16,12 @@ export default async function Page() {
         <section>
           <AddressForm countries={countries} storedAddress={address} />
         </section>
-        <section>
+        <section className="flex flex-col gap-3">
           <SummaryCart />
           <Button
             variant="primary"
             size="lg"
-            className="font-semibold mt-6 w-full"
+            className="font-semibold mt-3 w-full"
             form="address-form"
             type="submit"
           >

@@ -1,4 +1,4 @@
-import { Button, SubTitle, Title } from "@/components";
+import { Button, SubTitle, SummaryCart, Title } from "@/components";
 import { initialData } from "@/seed";
 import { PenLine } from "lucide-react";
 import Image from "next/image";
@@ -47,27 +47,7 @@ export default function Page() {
           </div>
         </section>
         <section className="flex flex-col gap-3">
-          <SubTitle className="text-lg font-mono sm:col-span-2">
-            Order summary
-          </SubTitle>
-          <dl className="divide-y divide-neutral-800 text-sm *:flex *:justify-between *:py-4 font-mono">
-            <div className="opacity-70">
-              <dt>Subtotal</dt>
-              <dd>$500</dd>
-            </div>
-            <div className="opacity-70">
-              <dt>Tax</dt>
-              <dd>$0</dd>
-            </div>
-            <div className="opacity-70">
-              <dt>Shipping</dt>
-              <dd>$10</dd>
-            </div>
-            <div className="font-bold text-lg">
-              <dt>Total</dt>
-              <dd>$510</dd>
-            </div>
-          </dl>
+          <SummaryCart />
           <SubTitle className="text-lg font-mono">
             Shipping Information
           </SubTitle>
