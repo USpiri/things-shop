@@ -1,7 +1,6 @@
-import { Button, SubTitle, Title } from "@/components";
+import { Button, SubTitle, SummaryCart, Title } from "@/components";
 import { CircleDollarSign, ShoppingCart } from "lucide-react";
 import { ProductsInCart } from "./ui/ProductsInCart";
-import { SummaryCart } from "./ui/SummaryCart";
 
 export default function Page() {
   return (
