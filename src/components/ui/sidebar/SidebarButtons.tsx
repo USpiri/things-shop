@@ -41,13 +41,13 @@ const adminMenuItems = [
     icon: ReceiptText,
   },
   {
-    path: "/products",
+    path: "/admin/products",
     label: "Products",
     icon: Shirt,
   },
   {
-    path: "/users",
-    label: "Clients",
+    path: "/admin/users",
+    label: "Users",
     icon: Users,
   },
 ];

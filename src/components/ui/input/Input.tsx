@@ -29,6 +29,35 @@ export const Input = ({
   );
 };
 
+interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label: string;
+  labelClassName?: string;
+  inputClassName?: string;
+}
+
+export const Textarea = ({
+  label,
+  labelClassName,
+  inputClassName,
+  ...props
+}: TextAreaProps) => {
+  return (
+    <label className={props.className}>
+      <span className={cn("opacity-80 font-mono text-sm", labelClassName)}>
+        {label}
+      </span>
+      <textarea
+        {...props}
+        className={cn(
+          "block w-full min-h-36 rounded py-1.5 placeholder:text-neutral-500 border border-neutral-700 outline-none focus:border-blue-600/50 px-3 bg-transparent",
+          inputClassName,
+        )}
+      ></textarea>
+    </label>
+  );
+};
+
 export const InputForm = forwardRef<HTMLInputElement, InputProps>(
   ({ label, labelClassName, inputClassName, ...props }, ref) => {
     return (
