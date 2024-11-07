@@ -103,16 +103,17 @@ model UserAddress {
 }
 
 model Order {
-  id           String    @id @default(uuid())
-  subTotal     Float
-  tax          Float
-  shipping     Float
-  total        Float
-  itemsInOrder Int
-  isPaid       Boolean   @default(false)
-  paidAt       DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id            String    @id @default(uuid())
+  subTotal      Float
+  tax           Float
+  shipping      Float
+  total         Float
+  itemsInOrder  Int
+  isPaid        Boolean   @default(false)
+  paidAt        DateTime?
+  transactionId String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   // Relaciones
   user         User      @relation(fields: [userId], references: [id])
