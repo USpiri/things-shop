@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "../button/Button";
 import Link from "next/link";
-import { useUIStore } from "@/store";
+import { useAddressStore, useUIStore } from "@/store";
 import { useSession } from "next-auth/react";
 
 const publicMenuItems = [
@@ -54,6 +54,7 @@ const adminMenuItems = [
 
 export const SidebarButtons = () => {
   const toggleSideMenu = useUIStore((state) => state.toggleSideMenu);
+  const clearAddress = useAddressStore((state) => state.clearAddress);
   const { data: session } = useSession();
 
   const isAuthenticated = !!session?.user;
@@ -103,9 +104,11 @@ export const SidebarButtons = () => {
 
       {isAuthenticated && (
         <Button
-          onClick={() => {
-            window.location.replace("/");
-            logout();
+          onClick={async () => {
+            await logout().then(() => {
+              clearAddress();
+              window.location.replace("/");
+            });
           }}
           className="group justify-start rounded-none px-4 py-1.5 tracking-widest gap-3 font-extralight font-mono"
         >
