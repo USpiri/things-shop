@@ -20,7 +20,7 @@ export const PayPalButton = ({ amount, orderId }: Props) => {
   const rounded = Math.round(amount * 100) / 100;
 
   const createOrder = async (
-    data: CreateOrderData,
+    _data: CreateOrderData,
     actions: CreateOrderActions,
   ) => {
     const transactionId = await actions.order.create({
@@ -46,7 +46,7 @@ export const PayPalButton = ({ amount, orderId }: Props) => {
     return transactionId;
   };
 
-  const onApprove = async (data: OnApproveData, actions: OnApproveActions) => {
+  const onApprove = async (_data: OnApproveData, actions: OnApproveActions) => {
     const details = await actions.order?.capture();
     if (!details) return;
     await checkPayment(details.id!);
@@ -61,5 +61,9 @@ export const PayPalButton = ({ amount, orderId }: Props) => {
     );
   }
 
-  return <PayPalButtons createOrder={createOrder} onApprove={onApprove} />;
+  return (
+    <div className="relative z-0">
+      <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
+    </div>
+  );
 };
