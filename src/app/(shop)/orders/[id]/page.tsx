@@ -1,11 +1,13 @@
 import { getOrderById } from "@/actions/order/get-by-id";
 import {
+  PayPalButton,
   ProductSmallItem,
   Shipping,
   SubTitle,
   Summary,
   Title,
 } from "@/components";
+import { Check } from "lucide-react";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -27,6 +29,7 @@ export default async function Page({ params }: Props) {
     shipping,
     OrderAddress: address,
     OrderItem: products,
+    id: orderId,
   } = res.order!;
 
   return (
@@ -35,9 +38,13 @@ export default async function Page({ params }: Props) {
         <span>Order: {id.split("-")[0]}</span>
       </Title>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
-        {!isPaid && (
+        {!isPaid ? (
           <aside className="md:col-span-2 border border-rose-600/30 rounded text-sm bg-red-400/10 px-3 py-1.5">
             Payment pending
+          </aside>
+        ) : (
+          <aside className="md:col-span-2 border border-emerald-600/30 rounded text-sm bg-emerald-400/10 px-3 py-1.5">
+            <Check className="w-5 h-5 text-emerald-400 inline" /> Order paid
           </aside>
         )}
         <section className="flex flex-col gap-6">
@@ -58,6 +65,7 @@ export default async function Page({ params }: Props) {
           ))}
         </section>
         <section className="flex flex-col gap-3">
+          {!isPaid && <PayPalButton amount={total} orderId={orderId} />}
           <Summary
             total={total}
             subtotal={subTotal}
