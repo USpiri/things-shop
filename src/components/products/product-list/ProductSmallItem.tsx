@@ -1,4 +1,3 @@
-"use client";
 import { CartProduct } from "@/models/product.interface";
 import { currencyFormat } from "@/utils";
 import Image from "next/image";
@@ -7,7 +6,7 @@ interface Props {
   product: CartProduct;
 }
 
-export const ProductItem = ({ product }: Props) => {
+export const ProductSmallItem = ({ product }: Props) => {
   return (
     <article className="flex">
       <Image

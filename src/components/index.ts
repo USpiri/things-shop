@@ -1,5 +1,6 @@
 export * from "./ui/top-bar/TopBar";
 export * from "./products/products-grid/ProductsGrid";
+export * from "./products/product-list/ProductSmallItem";
 export * from "./product/size-selector/SizeSelector";
 export * from "./product/quantity-selector/QuantitySelector";
 export * from "./product/product-image-swiper/ProductImageSwiper";
@@ -12,5 +13,6 @@ export * from "./ui/title/SubTitle";
 export * from "./ui/button/Button";
 export * from "./ui/input/Input";
 export * from "./ui/footer/Footer";
+export * from "./ui/shipping/Shipping";
 export * from "./ui/pagination/Pagination";
 export * from "./providers/Provider";

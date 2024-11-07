@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ProductItem } from "./ProductItem";
 import { useCartStore } from "@/store";
 import { useRouter } from "next/navigation";
+import { ProductSmallItem } from "@/components";
 
 export const ProductsList = () => {
   const products = useCartStore((state) => state.cart);
@@ -21,7 +21,7 @@ export const ProductsList = () => {
   return (
     <>
       {products.map((product) => (
-        <ProductItem
+        <ProductSmallItem
           product={product}
           key={`${product.slug}-${product.size}`}
         />
