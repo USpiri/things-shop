@@ -55,7 +55,7 @@ export const AddToCart = ({ product }: Props) => {
         <div>
           <p className="mb-2">Quantity:</p>
           <QuantitySelector
-            maxValue={10}
+            maxValue={product.inStock}
             quantity={quantity}
             onChange={setQuantity}
           />
@@ -75,6 +75,7 @@ export const AddToCart = ({ product }: Props) => {
           size="lg"
           onClick={() => addToCart()}
           className="w-full tracking-wider font-medium"
+          disabled={product.inStock === 0}
         >
           <ShoppingCart className="w-5 h-5" />
           Add to cart
