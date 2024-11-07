@@ -2,7 +2,8 @@
 import { createOrder } from "@/actions/order";
 import { Button } from "@/components";
 import { useAddressStore, useCartStore } from "@/store";
-import { Check, TriangleAlert } from "lucide-react";
+import { TriangleAlert } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const CreateOrderButton = () => {
@@ -11,6 +12,8 @@ export const CreateOrderButton = () => {
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const address = useAddressStore((state) => state.address);
   const cart = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const router = useRouter();
 
   useEffect(() => {
     setLoaded(true);
@@ -33,7 +36,8 @@ export const CreateOrderButton = () => {
       return;
     }
 
-    setMessage("");
+    router.replace(`/orders/${res.order!.id}`);
+    clearCart();
   };
 
   return (
@@ -47,19 +51,11 @@ export const CreateOrderButton = () => {
       >
         Confirm order
       </Button>
-      {message !== undefined && (
-        <>
-          {message.length === 0 ? (
-            <p className="text-sm text-emerald-500 fade-in">
-              <Check className="w-4 h-4 inline" /> Success
-            </p>
-          ) : (
-            <p className="text-sm text-red-500 fade-in">
-              <TriangleAlert className="w-4 h-4 inline" /> Error creating order:{" "}
-              {message}
-            </p>
-          )}
-        </>
+      {message && (
+        <p className="text-sm text-red-500 fade-in">
+          <TriangleAlert className="w-4 h-4 inline" /> Error creating order:{" "}
+          {message}
+        </p>
       )}
     </>
   );
