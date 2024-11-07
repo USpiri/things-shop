@@ -17,8 +17,6 @@ export const SummaryCart = () => {
     setLoaded(true);
   }, []);
 
-  console.log(loaded);
-
   return (
     <Summary
       subtotal={subTotal}
