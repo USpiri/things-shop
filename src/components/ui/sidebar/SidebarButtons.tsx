@@ -103,7 +103,10 @@ export const SidebarButtons = () => {
 
       {isAuthenticated && (
         <Button
-          onClick={() => logout()}
+          onClick={() => {
+            window.location.replace("/");
+            logout();
+          }}
           className="group justify-start rounded-none px-4 py-1.5 tracking-widest gap-3 font-extralight font-mono"
         >
           <LogOut className="h-4 w-4 stroke-[1.2] group-hover:stroke-2 transition-all" />
