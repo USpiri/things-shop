@@ -9,10 +9,9 @@ export const ProductsList = () => {
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
 
-  if (useCartStore.getState().cart.length === 0) router.replace("/");
-
   useEffect(() => {
     setLoaded(true);
+    if (useCartStore.getState().cart.length === 0) router.replace("/");
   }, []);
 
   if (!loaded) {
