@@ -15,4 +15,4 @@ export * from "./ui/input/Input";
 export * from "./ui/footer/Footer";
 export * from "./ui/shipping/Shipping";
 export * from "./ui/pagination/Pagination";
-export * from "./providers/Provider";
+export * from "./providers/Providers";
