@@ -1,49 +1,73 @@
+import { getOrders } from "@/actions/order/get-by-user";
 import { Button, Title } from "@/components";
+import { cn, currencyFormat } from "@/utils";
 import { ExternalLink } from "lucide-react";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const res = await getOrders();
+  if (!res.ok) redirect("/");
+  const orders = res.orders ?? [];
+
   return (
     <main>
       <Title>Orders</Title>
       <section className="max-w-4xl mx-auto">
         <table className="w-full text-sm text-left text-neutral-400 divide-y divide-neutral-800">
           <thead className="text-sm uppercase font-mono font-light max-sm:hidden">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                # ID
+            <tr className="*:px-6 *:py-3">
+              <th scope="col"># ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Status</th>
+              <th scope="col" className="text-right">
+                Total
               </th>
-              <th scope="col" className="px-6 py-3">
-                Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3 text-right">
+              <th scope="col" className="text-right">
                 Options
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-neutral-800 *:*:max-sm:block">
-            <tr className="*:px-5 *:py-1 *:sm:px-6 *:sm:py-4 max-sm:grid max-sm:grid-cols-2">
-              <th
-                scope="row"
-                className="font-medium whitespace-nowrap font-mono text-foreground col-span-2"
+            {orders.map((order) => (
+              <tr
+                key={order.id}
+                className="*:px-5 *:py-1 *:sm:px-6 *:sm:py-4 max-sm:grid max-sm:grid-cols-2"
               >
-                # Apple MacBook Pro 17
-              </th>
-              <td className="col-span-2">Uriel Spiridione Uriel Spiridione</td>
-              <td>
-                <div className="flex items-center gap-2 h-full">
-                  <div className="w-1 h-1 bg-emerald-500 rounded-full" />
-                  Delivered
-                </div>
-              </td>
-              <td className="text-right">
-                <Button size="icon">
-                  <ExternalLink className="w-4 h-4" />
-                </Button>
-              </td>
-            </tr>
+                <th
+                  scope="row"
+                  className="font-medium max-sm:mt-2 whitespace-nowrap font-mono text-foreground col-span-2"
+                >
+                  # {order.id.split("-")[0]}
+                </th>
+                <td className="col-span-2">
+                  {order.OrderAddress?.name} {order.OrderAddress?.lastname}
+                </td>
+                <td>
+                  <div className="flex items-center gap-2 h-full">
+                    <div
+                      className={cn(
+                        "w-1 h-1 rounded-full",
+                        order.isPaid ? "bg-emerald-500" : "bg-red-500",
+                      )}
+                    />
+                    {order.isPaid ? "Paid" : "Pending payment"}
+                  </div>
+                </td>
+                <td className="text-right max-sm:text-left">
+                  {currencyFormat(order.total)} ({order.itemsInOrder})
+                </td>
+                <td className="text-right max-sm:col-span-2 max-sm:text-center">
+                  <Button
+                    size="icon"
+                    className="max-sm:w-full"
+                    link
+                    href={`/orders/${order.id}`}
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </section>
