@@ -36,7 +36,7 @@ const privateMenuItems = [
 
 const adminMenuItems = [
   {
-    path: "/orders",
+    path: "/admin/orders",
     label: "All Orders",
     icon: ReceiptText,
   },
