@@ -15,27 +15,33 @@ interface State {
     postalCode: string;
   };
   setAddress: (address: State["address"]) => void;
+  clearAddress: () => void;
 }
+
+const initialState = {
+  address: {
+    name: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    address: "",
+    address2: "",
+    country: "",
+    state: "",
+    city: "",
+    postalCode: "",
+  },
+};
 
 export const useAddressStore = create<State>()(
   persist(
     (set) => ({
-      address: {
-        name: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        address: "",
-        address2: "",
-        country: "",
-        state: "",
-        city: "",
-        postalCode: "",
-      },
+      ...initialState,
 
       setAddress: (address) => {
         set({ address });
       },
+      clearAddress: () => set({ ...initialState }),
     }),
     {
       name: "address",
