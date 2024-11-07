@@ -106,6 +106,7 @@ model Order {
   id           String    @id @default(uuid())
   subTotal     Float
   tax          Float
+  shipping     Float
   total        Float
   itemsInOrder Int
   isPaid       Boolean
