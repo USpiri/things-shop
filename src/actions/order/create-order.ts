@@ -85,8 +85,6 @@ export const createOrder = async (
 
       const updatedProducts = await Promise.all(updatedProductPromises);
       updatedProducts.forEach((p) => {
-        console.log(p.inStock < 0);
-
         if (p.inStock < 0) {
           throw new Error(`"${p.title}" out of stock`);
         }
@@ -134,7 +132,6 @@ export const createOrder = async (
     return {
       ok: true,
       order: prismaTx.order,
-      tx: prismaTx,
     };
 
     // eslint-disable-next-line
