@@ -61,14 +61,13 @@ export const ProductForm = ({ product, categories }: Props) => {
   watch("images");
 
   const onSizeChange = (value: Size) => {
-    console.log(getValues("images"));
-    // const sizes = new Set(getValues("sizes"));
-    // if (sizes.has(value)) {
-    //   sizes.delete(value);
-    // } else {
-    //   sizes.add(value);
-    // }
-    // setValue("sizes", Array.from(sizes));
+    const sizes = new Set(getValues("sizes"));
+    if (sizes.has(value)) {
+      sizes.delete(value);
+    } else {
+      sizes.add(value);
+    }
+    setValue("sizes", Array.from(sizes));
   };
 
   const onDeleteImage = async (id: string, url: string) => {
