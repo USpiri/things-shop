@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { Gender, Product, Size } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { v2 as cloudinary } from "cloudinary";
 
 const productSchema = z.object({
   id: z.string().uuid().optional().nullable(),
@@ -37,7 +38,7 @@ export const createOrUpdateProduct = async (formData: FormData) => {
 
   try {
     // Transaction
-    const prismaTx = await prisma.$transaction(async (tx) => {
+    const prismaTx = await prisma.$transaction(async () => {
       let product: Product;
       const tagsArray = rest.tags
         .split(",")
@@ -69,6 +70,21 @@ export const createOrUpdateProduct = async (formData: FormData) => {
           },
         });
       }
+
+      if (formData.getAll("images")) {
+        const images = await uploadImages(formData.getAll("images") as File[]);
+        if (!images) {
+          throw new Error("Unable to upload image, transaction not excecuted");
+        }
+
+        await prisma.productImage.createMany({
+          data: images.map((image) => ({
+            url: image!,
+            productId: product.id,
+          })),
+        });
+      }
+
       return { product };
     });
 
@@ -83,5 +99,30 @@ export const createOrUpdateProduct = async (formData: FormData) => {
   } catch (e) {
     console.log(e);
     return { ok: false, message: "Unable to save transaction" };
+  }
+};
+
+const uploadImages = async (images: File[]) => {
+  try {
+    const uploadPromises = images.map(async (image) => {
+      try {
+        const buffer = await image.arrayBuffer();
+        const base64Image = Buffer.from(buffer).toString("base64");
+        return cloudinary.uploader
+          .upload(`data:image/png;base64,${base64Image}`, {
+            folder: "things-shop",
+          })
+          .then((r) => r.secure_url);
+      } catch (e) {
+        console.log(e);
+        return null;
+      }
+    });
+
+    const uploadedImages = await Promise.all(uploadPromises);
+    return uploadedImages;
+  } catch (e) {
+    console.log(e);
+    return null;
   }
 };

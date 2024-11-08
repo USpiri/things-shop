@@ -1,13 +1,14 @@
 "use client";
 
 import { createOrUpdateProduct } from "@/actions/products/create-update-product";
+import { deleteProductImage } from "@/actions/products/delete-product-image";
 import {
   Button,
   InputForm as Input,
   SizeMultiSelector,
   TextAreaForm as Textarea,
 } from "@/components";
-import { ProductImage } from "@/components/product/product-image/ProductImage";
+import { ProductImage } from "@/components";
 import {
   Gender,
   Product,
@@ -15,6 +16,7 @@ import {
   Size,
 } from "@/models/product.interface";
 import { Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type FormValues = {
@@ -39,6 +41,7 @@ const sizes: Size[] = ["XS", "S", "M", "L", "XL", "XXL"];
 const genders = ["men", "women", "kid", "unisex"];
 
 export const ProductForm = ({ product, categories }: Props) => {
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -55,21 +58,27 @@ export const ProductForm = ({ product, categories }: Props) => {
     },
   });
   watch("sizes");
+  watch("images");
 
   const onSizeChange = (value: Size) => {
-    const sizes = new Set(getValues("sizes"));
-    if (sizes.has(value)) {
-      sizes.delete(value);
-    } else {
-      sizes.add(value);
-    }
-    setValue("sizes", Array.from(sizes));
+    console.log(getValues("images"));
+    // const sizes = new Set(getValues("sizes"));
+    // if (sizes.has(value)) {
+    //   sizes.delete(value);
+    // } else {
+    //   sizes.add(value);
+    // }
+    // setValue("sizes", Array.from(sizes));
+  };
+
+  const onDeleteImage = async (id: string, url: string) => {
+    await deleteProductImage(id, url);
   };
 
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
 
-    const { ...productToSave } = data;
+    const { images, ...productToSave } = data;
 
     if (product.id) formData.append("id", product.id);
     formData.append("title", productToSave.title);
@@ -82,8 +91,20 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append("categoryId", productToSave.categoryId);
     formData.append("gender", productToSave.gender);
 
-    const res = await createOrUpdateProduct(formData);
-    console.log(res);
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
+    }
+
+    const { ok, product: updatedProduct } =
+      await createOrUpdateProduct(formData);
+
+    if (!ok) {
+      alert("Unable to save product");
+      return;
+    }
+    router.replace(`/admin/product/${updatedProduct?.slug}`);
   };
 
   return (
@@ -146,13 +167,6 @@ export const ProductForm = ({ product, categories }: Props) => {
             type="number"
             {...register("inStock", { required: true })}
           />
-          <label>
-            <span className="opacity-80 font-mono text-sm">Select Images</span>
-            <div className="block w-full hover:underline rounded py-1.5 placeholder:text-neutral-500 border border-neutral-700 outline-none focus:border-blue-600/50 px-3 bg-transparent">
-              <span className="opacity-80 text-sm">Click here</span>
-            </div>
-            <input type="file" className="hidden" />
-          </label>
           <div className="flex flex-col gap-2">
             <span className="opacity-80 font-mono text-sm">Select Size</span>
             <SizeMultiSelector
@@ -160,6 +174,26 @@ export const ProductForm = ({ product, categories }: Props) => {
               options={sizes}
               onChange={onSizeChange}
             />
+          </div>
+          <label>
+            <span className="opacity-80 font-mono text-sm">Select Images</span>
+            <div className="block w-full hover:underline rounded py-1.5 placeholder:text-neutral-500 border border-neutral-700 outline-none focus:border-blue-600/50 px-3 bg-transparent">
+              <span className="opacity-80 text-sm">Click here</span>
+            </div>
+            <input
+              type="file"
+              className="hidden"
+              multiple
+              accept="image/png, image/jpeg, image/avif"
+              {...register("images", { onChange: console.log })}
+            />
+          </label>
+          <div className="text-xs opacity-70 font-mono">
+            {Array.from(getValues("images") ?? [])
+              .map((f) => f.name)
+              .map((file, i) => (
+                <p key={`${i}-${file}`}>{file}</p>
+              ))}
           </div>
           <Button
             variant="primary"
@@ -184,7 +218,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                   className="bg-background max-sm:p-1.5"
                   type="button"
                   onClick={() => {
-                    console.log(image.id);
+                    onDeleteImage(image.id, image.url);
                   }}
                 >
                   <Trash2 className="w-4 h-4" />

@@ -15,8 +15,6 @@ export const ProductImage = ({
   src,
   ...rest
 }: Props) => {
-  console.log(src);
-
   const localSrc = src
     ? src.startsWith("http")
       ? src
