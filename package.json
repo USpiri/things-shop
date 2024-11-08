@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run prisma:deploy && next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node src/seed/seed-database.ts"
+    "seed": "ts-node src/seed/seed-database.ts",
+    "prisma:deploy": "npx prisma migrate deploy && prisma generate"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^8.7.0",
