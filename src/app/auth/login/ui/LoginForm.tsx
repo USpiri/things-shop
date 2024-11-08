@@ -18,7 +18,7 @@ export const LoginForm = ({ redirectTo }: Props) => {
     if (state === "Success") {
       window.location.replace(`${redirectTo ?? "/"}`);
     }
-  }, [state]);
+  }, [state, redirectTo]);
 
   return (
     <form action={formAction} className="flex flex-col gap-4">

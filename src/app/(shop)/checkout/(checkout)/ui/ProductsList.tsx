@@ -12,7 +12,7 @@ export const ProductsList = () => {
   useEffect(() => {
     setLoaded(true);
     if (useCartStore.getState().cart.length === 0) router.replace("/");
-  }, []);
+  }, [router]);
 
   if (!loaded) {
     return <p>Loading...</p>;

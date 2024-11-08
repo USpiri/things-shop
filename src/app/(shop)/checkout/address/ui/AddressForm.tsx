@@ -54,7 +54,7 @@ export const AddressForm = ({ countries, storedAddress = {} }: Props) => {
     if (address.name) {
       reset(address);
     }
-  }, []);
+  }, [address, reset]);
 
   return (
     <form
