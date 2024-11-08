@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: product?.title ?? "Thins Shop",
     description: product?.description ?? "Minimalist shop",
     openGraph: {
-      images: [`/products/${product?.images[1]}`],
+      images: [`/images/products/${product?.images[1]}`],
     },
   };
 }
