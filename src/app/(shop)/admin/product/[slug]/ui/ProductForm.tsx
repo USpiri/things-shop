@@ -7,14 +7,14 @@ import {
   SizeMultiSelector,
   TextAreaForm as Textarea,
 } from "@/components";
+import { ProductImage } from "@/components/product/product-image/ProductImage";
 import {
   Gender,
   Product,
-  ProductImage,
+  ProductImage as IProductImage,
   Size,
 } from "@/models/product.interface";
 import { Trash2 } from "lucide-react";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 
 type FormValues = {
@@ -31,7 +31,7 @@ type FormValues = {
 };
 
 interface Props {
-  product: Partial<Omit<Product, "images">> & { images?: ProductImage[] };
+  product: Partial<Omit<Product, "images">> & { images?: IProductImage[] };
   categories: { id: string; name: string }[];
 }
 
@@ -172,11 +172,11 @@ export const ProductForm = ({ product, categories }: Props) => {
         <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4 mt-3">
           {product.images?.map((image) => (
             <div key={image.id} className="relative">
-              <Image
+              <ProductImage
                 alt={product.title ?? ""}
                 width={250}
                 height={250}
-                src={`/images/products/${image.url}`}
+                src={image.url}
                 className="w-full aspect-square rounded"
               />
               <div className="absolute top-2 right-2">

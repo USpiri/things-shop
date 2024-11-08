@@ -1,8 +1,7 @@
 import { getPaginatedProductsWithImages } from "@/actions/products";
-import { Button, Pagination, Title } from "@/components";
+import { Button, Pagination, ProductImage, Title } from "@/components";
 import { currencyFormat } from "@/utils";
 import { PenLine } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -50,12 +49,12 @@ export default async function Page({ searchParams }: Props) {
                 <th scope="row" className="row-span-6">
                   <div className="h-full flex items-center justify-end md:justify-center">
                     <Link href={`/product/${product.slug}`}>
-                      <Image
-                        src={`/images/products/${product.images[0]}`}
+                      <ProductImage
+                        src={product.images[0]}
                         width={100}
                         height={100}
                         alt={`Product "${product.title}" image`}
-                        className="max-md:h-32 max-md:w-32 aspect-square"
+                        className="max-md:h-32 max-md:w-32 aspect-square rounded"
                       />
                     </Link>
                   </div>

@@ -4,6 +4,7 @@ export * from "./products/product-list/ProductSmallItem";
 export * from "./product/size-selector/SizeSelector";
 export * from "./product/quantity-selector/QuantitySelector";
 export * from "./product/product-image-swiper/ProductImageSwiper";
+export * from "./product/product-image/ProductImage";
 export * from "./product/stock-label/StockLabel";
 export * from "./product/summary/Summary";
 export * from "./product/summary/SummaryCart";

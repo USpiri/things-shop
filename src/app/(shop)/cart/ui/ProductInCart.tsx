@@ -1,8 +1,7 @@
-import { Button, QuantitySelector } from "@/components";
+import { Button, ProductImage, QuantitySelector } from "@/components";
 import { CartProduct } from "@/models/product.interface";
 import { currencyFormat } from "@/utils";
 import { Trash2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
@@ -19,8 +18,8 @@ export const ProductInCart = ({
   return (
     <article className="py-10 flex">
       <Link href={`/product/${product.slug}`}>
-        <Image
-          src={`/images/products/${product.image}`}
+        <ProductImage
+          src={product.image}
           width={100}
           height={100}
           alt={`Product: ${product.title}`}

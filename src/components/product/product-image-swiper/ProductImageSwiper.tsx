@@ -1,11 +1,11 @@
 "use client";
 import { cn } from "@/utils";
-import Image from "next/image";
 import { useState } from "react";
 import { Swiper as SwiperObject } from "swiper";
 import { Autoplay, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { ProductImage } from "../product-image/ProductImage";
 
 interface Props {
   images: string[];
@@ -19,9 +19,9 @@ export const ProductImageSwiper = ({ images }: Props) => {
     <div className="sm:col-span-3 flex gap-3 flex-col-reverse lg:flex-row justify-end">
       <div className="flex shrink-0 gap-4 flex-row lg:flex-col justify-center lg:justify-start">
         {images.map((img, i) => (
-          <Image
+          <ProductImage
             key={img}
-            src={`/images/products/${img}`}
+            src={img}
             width={200}
             height={200}
             alt={`Product image: ${img}`}
@@ -45,8 +45,8 @@ export const ProductImageSwiper = ({ images }: Props) => {
         >
           {images.map((img) => (
             <SwiperSlide key={img}>
-              <Image
-                src={`/images/products/${img}`}
+              <ProductImage
+                src={img}
                 width={420}
                 height={420}
                 alt="Product image"

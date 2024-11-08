@@ -1,6 +1,6 @@
+import { ProductImage } from "@/components/product/product-image/ProductImage";
 import { CartProduct } from "@/models/product.interface";
 import { currencyFormat } from "@/utils";
-import Image from "next/image";
 
 interface Props {
   product: CartProduct;
@@ -9,8 +9,8 @@ interface Props {
 export const ProductSmallItem = ({ product }: Props) => {
   return (
     <article className="flex">
-      <Image
-        src={`/images/products/${product.image}`}
+      <ProductImage
+        src={product.image}
         width={50}
         height={50}
         alt={`Product: ${product.title}`}
