@@ -25,3 +25,9 @@ export interface CartProduct {
   size: Size;
   image: string;
 }
+
+export interface ProductImage {
+  id: string;
+  url: string;
+  productId: string;
+}

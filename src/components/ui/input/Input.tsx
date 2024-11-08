@@ -50,13 +50,34 @@ export const Textarea = ({
       <textarea
         {...props}
         className={cn(
-          "block w-full min-h-36 rounded py-1.5 placeholder:text-neutral-500 border border-neutral-700 outline-none focus:border-blue-600/50 px-3 bg-transparent",
+          "block w-full text-sm min-h-36 rounded py-1.5 placeholder:text-neutral-500 border border-neutral-700 outline-none focus:border-blue-600/50 px-3 bg-transparent",
           inputClassName,
         )}
       ></textarea>
     </label>
   );
 };
+
+export const TextAreaForm = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  ({ label, labelClassName, inputClassName, ...props }, ref) => {
+    return (
+      <label className={props.className}>
+        <span className={cn("opacity-80 font-mono text-sm", labelClassName)}>
+          {label}
+        </span>
+        <textarea
+          ref={ref}
+          {...props}
+          className={cn(
+            "block w-full text-sm min-h-36 rounded py-1.5 placeholder:text-neutral-500 border border-neutral-700 outline-none focus:border-blue-600/50 px-3 bg-transparent",
+            inputClassName,
+          )}
+        ></textarea>
+      </label>
+    );
+  },
+);
+TextAreaForm.displayName = "TextAreaForm";
 
 export const InputForm = forwardRef<HTMLInputElement, InputProps>(
   ({ label, labelClassName, inputClassName, ...props }, ref) => {

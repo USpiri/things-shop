@@ -1,4 +1,4 @@
-import { getProductBySlug } from "@/actions/products/product-by";
+import { getProductWithImagesBySlug } from "@/actions/products/product-by";
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
 import { ProductForm } from "./ui/ProductForm";
@@ -14,7 +14,7 @@ export default async function Page({ params }: Props) {
   const { slug } = params;
 
   const [product, categories] = await Promise.all([
-    getProductBySlug(slug),
+    getProductWithImagesBySlug(slug),
     getCategories(),
   ]);
 
@@ -28,7 +28,7 @@ export default async function Page({ params }: Props) {
         <br />
         <span className="text-base tracking-wide break-all">{slug}</span>
       </Title>
-      <ProductForm product={product!} categories={categories} />
+      <ProductForm product={product ?? {}} categories={categories} />
     </main>
   );
 }
