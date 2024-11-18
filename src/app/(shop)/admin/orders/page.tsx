@@ -12,12 +12,18 @@ interface Props {
 
 export default async function Page({ searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
-  const { orders = [], totalPages = 1 } = await getAdminOrders({
+  const {
+    orders = [],
+    totalPages = 1,
+    ok,
+  } = await getAdminOrders({
     take: 5,
     page,
   });
+  if (!ok) redirect("/");
 
-  if (orders.length === 0 || isNaN(page)) redirect(`/admin/orders`);
+  if ((orders.length === 0 && page > 1) || isNaN(page))
+    redirect(`/admin/orders`);
 
   return (
     <main>
