@@ -37,6 +37,9 @@ See the [demo here](https://thingsshop.vercel.app/).
 
 ![438_1x_shots_so](https://github.com/user-attachments/assets/5f491e14-5c6a-41bb-a084-b825b915ed6b)
 
+> [!IMPORTANT]
+> This is an e-commerce carried out in the course *Next.js: The React framework for production* by @klerith.
+
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
