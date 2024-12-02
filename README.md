@@ -37,9 +37,6 @@ See the [demo here](https://thingsshop.vercel.app/).
 
 ![438_1x_shots_so](https://github.com/user-attachments/assets/5f491e14-5c6a-41bb-a084-b825b915ed6b)
 
-> [!IMPORTANT]
-> This is an e-commerce carried out in the course *Next.js: The React framework for production* by [Fernando Herrera](https://github.com/klerith).
-
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
@@ -53,13 +50,14 @@ See the [demo here](https://thingsshop.vercel.app/).
 
 ## 🚀 Features
 
-- 🛍️ **Ecommerce Essentials**: Add products to a cart, manage inventory, and process payments securely with PayPal.
+- 🛍️ **Ecommerce Essentials**: Add products to a cart, manage inventory, and process payments securely with [PayPal](https://www.paypal.com/).
 - 📦 **Dynamic Product Management**: Easily manage products and stock with the Prisma ORM.
 - 🌐 **Server Actions**: Optimized with server components for fast rendering.
 - 🖼️ **Efficient Image Handling**: Product images stored and delivered via Cloudinary.
 - 🔐 **Authentication**: Custom auth implementation for login with [Auth.js](https://authjs.dev/).
 - 👥 **Role based route protection**: Allows certain users to get specific pages based on the user's role.
 - 📱 **Responsive Design**: Ensure accesibility from all devices.
+- 🔎 **Search page**: Quickly find products, user-friendly search interface, using search params.
 
 ## 🖼️ Screenshoots
 <p align="center">
@@ -159,3 +157,5 @@ npm run build
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
 <p align="right"><a href="#readme-top">Back to top ⬆️</a></p>
+
+Special thanks to [Fernando Herrera](https://github.com/klerith) for his Nextjs course.
