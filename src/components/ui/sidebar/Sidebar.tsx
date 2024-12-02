@@ -4,6 +4,7 @@ import { useUIStore } from "@/store";
 import clsx from "clsx";
 import { Search, X } from "lucide-react";
 import { SidebarButtons } from "./SidebarButtons";
+import { redirect } from "next/navigation";
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
@@ -35,15 +36,22 @@ export const Sidebar = () => {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="p-4">
+        <form
+          action={(e) => {
+            toggleSideMenu(false);
+            redirect(`/search?query=${e.get("query")}`);
+          }}
+          className="p-4"
+        >
           <label className="flex items-center gap-2 border rounded-md border-neutral-700 p-2">
             <Search className="w-4 h-4" />
             <input
               className="outline-none flex-1 bg-transparent text-sm font-mono placeholder-neutral-500"
               placeholder="Search..."
+              name="query"
             />
           </label>
-        </div>
+        </form>
         <div className="py-1 flex flex-col">
           <SidebarButtons />
         </div>

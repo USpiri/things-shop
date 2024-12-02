@@ -6,12 +6,14 @@ interface PaginationOptions {
   page?: number;
   take?: number;
   gender?: Gender;
+  query?: string;
 }
 
 export const getPaginatedProductsWithImages = async ({
   page = 1,
   take,
   gender,
+  query = "",
 }: PaginationOptions) => {
   if (isNaN(Number(page)) || page < 1) page = 1;
 
@@ -29,11 +31,25 @@ export const getPaginatedProductsWithImages = async ({
       },
       where: {
         gender,
+        title: {
+          contains: query,
+          mode: "insensitive",
+        },
       },
     });
 
     const totalPages = take
-      ? Math.ceil((await prisma.product.count({ where: { gender } })) / take)
+      ? Math.ceil(
+          (await prisma.product.count({
+            where: {
+              gender,
+              title: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          })) / take,
+        )
       : 1;
 
     return {
